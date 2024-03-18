@@ -24,9 +24,9 @@
             Custo da incubadora: <input type="text" id="input_investimento"> <br>
             Quantidade de incubadoras compradas: <input type="text" id="input_qtdIncubadora"> <br>
             Custos operacionais mensais: <input type="text" id="input_custoOperacional"> <br>
-            Valor dos gastos não desembolsáveis: <input type="text" id="input_naoDesembolsaveis"> <br>
             Preço do serviço médico diário: <input type="text" id="input_servico"> <br>
             Número de pacientes atendidos em um mês: <input type="text" id="input_pacientes"> <br>
+            Lucro mínimo esperado: <input type="text" id="input_lucroMinimo"><br>
             
             <button onclick="roi()">Calcular ROI</button> <br>
         
@@ -90,30 +90,20 @@
         var qtdIncubadora = Number (input_qtdIncubadora.value)
         var custoOperacional = Number(input_custoOperacional.value);
         var servico = Number(input_servico.value);
-        var naoDesem = Number(input_naoDesembolsaveis.value);
         var pacientes = Number(input_pacientes.value);
+        var lucroMinimo = Number(input_lucroMinimo.value);
         
 
-        var totalCusto = valorIncubadora * qtdIncubadora
+        var investimento = valorIncubadora * qtdIncubadora;
+
+        var ganhoMensal = pacientes * servico;
 
         var receitaMensal = (pacientes * servico) - custoOperacional; // serviço = 700
 
-        var lucro = receitaMensal - custoOperacional;
-
-        var roi = ((lucro - totalCusto) / totalCusto) * 100;
-
-        var custosTotais = custoOperacional + naoDesem;
-        var margemContribuicao = receitaMensal - custoOperacional;
-        var pontoEquilibrio = custosTotais / margemContribuicao; // EQUILÍBRIO MENSAL DAS CONTAS
+        var roi = ((ganhoMensal - investimento) / investimento) * 100;
         
         div_msg.innerHTML = `<p style="text-align: center;">A <b>Receita Mensal</b> será de: <b>R$${receitaMensal}</b><br>
                                 O ROI (Retorno Sobre o Investimento Mensal) será de: <b>${roi}%</b></p>`;
 
-        if (pontoEquilibrio >= pacientes){
-            div_msg.innerHTML += `<p style="color: red; text-align: center;">O Ponto de Equilíbrio está em ${pontoEquilibrio}, o que significa que a incubadora está operando com prejuízo!</p>`;
-        } else {
-            div_msg.innerHTML += `<p style="color: darkblue; text-align: center;">O Ponto de Equilíbrio está em ${pontoEquilibrio}, o que significa que a incubadora está operando com lucro!</p>`;
-        }
     }
 </script>
-
