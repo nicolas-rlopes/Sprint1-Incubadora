@@ -1,0 +1,44 @@
+body {
+    margin: 0;
+    background-color: #101f2f;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.titulo {
+    width: fit-content;
+    margin: auto;
+    color: #73d2e8;
+}
+
+.pai {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.filho {
+    margin-top: 10%;
+    width: 530px;
+    height: 550px;
+    margin: 0;
+    background-color: #edf2f5;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.bloco1 {
+    align-self: self-start;
+}
+
+.bloco2 {
+    align-self: self-end;
+}
+
+#div_mensagem {
+    margin-left: 10px;
+}
+
+#div_msg {
+    margin-left: 10px;
+}
