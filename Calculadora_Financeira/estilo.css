@@ -1,0 +1,48 @@
+body {
+    margin: 0;
+    background-color: #101f2f;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.titulo {
+    width: fit-content;
+    margin: auto;
+    color: #73d2e8;
+}
+
+
+.filho {
+    margin-top: 10%;
+    width: 530px;
+    height: fit-content;
+    margin: auto;
+    background-color: #edf2f5;
+    border: 2px solid black;
+    border-radius: 10px;
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
+.bloco {
+    align-self: self-start;
+}
+
+
+
+
+
+
+#div_mensagem {
+    margin-left: 10px;
+}
+
+
+
+
+

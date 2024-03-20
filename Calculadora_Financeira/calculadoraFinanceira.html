@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Financeira</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <h1 class="titulo">Calculadora Financeira</h1>
+    <div class="pai">
+        <div class="filho bloco">
+
+            Quantidade de bebês internados por mês: <input type="number" id="input_internado"> <br>
+            Média de dias internados por mês: <input type="number" id="input_media"> <br>
+            Custo diario para o hospital (por recém-nascido): <input type="number" id="input_custo"> <br>
+
+            <button onclick="calcular()">Calcular Redução</button> <br>
+            <div id="div_mensagem"></div><br>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    function calcular() {
+        var internados = Number(input_internado.value)
+        var media = Number(input_media.value)
+        var custoDiario = Number(input_custo.value)
+
+
+        var diasTotal = media * internados
+        var custoMensal = diasTotal * custoDiario
+        var custoAnual = custoMensal * 12
+
+
+        div_mensagem.innerHTML = `O(s) ${internados} recém-nascidos que ficam em média ${media} dias tem um custo de:<br>`
+
+        // 30 - media =>  20
+
+
+        //desconto dado por conta dos bebes que não precisarão de cuidados extrams por conta da temperatura
+
+        // Redução com o desconto de 13%
+        var reducaoAnualMinima = custoAnual * 0.13
+        var reducaoMensalMinima = custoMensal * 0.13
+        var reducaoDiariaMinima = custoDiario * 0.13
+
+        // Redução com o desconto de 28%
+        var reducaoAnualMaxima = custoAnual * 0.28
+        var reducaoMensalMaxima = custoMensal * 0.28
+        var reducaoDiariaMaxima = custoDiario * 0.28
+
+        var custoFinalAnualMin = custoAnual - reducaoAnualMinima
+        var custoFinalMensalMin = custoMensal - reducaoMensalMinima
+        var custoFinalDiarioMin = custoDiario - reducaoDiariaMinima
+
+        var custoFinalAnualMax = custoAnual - reducaoAnualMaxima
+        var custoFinalMensalMax = custoMensal - reducaoMensalMaxima
+        var custoFinalDiarioMax = custoDiario - reducaoDiariaMaxima
+
+
+        div_mensagem.innerHTML += `No período de um ano teria um custo de <b style="color: red;">R$${custoAnual}</b> <br>
+        Por mês <b style="color: red;">R$${custoMensal}</b><br>
+
+        <h2>Ao utilizar o sensor para evitar custos adicionais causados pelo mal controle de temperatura, o hospital teria reduzido o custo em: </h2>
+
+
+        
+        No período de um ano a redução <b>Máxima</b> seria de<b style="color: green;">R$${reducaoAnualMaxima}</b> <br>
+        Por mês <b style="color: green;">R$${reducaoMensalMaxima}</b> <br>
+        Por dia <b style="color: green;">R$${reducaoDiariaMaxima}</b> <br>
+        <br>
+        No período de um ano a redução <b>Mínima</b> seria de<b style="color: green;">R$${reducaoAnualMinima}</b> <br>
+        Por mês <b style="color: green;">R$${reducaoMensalMinima}</b> <br>
+        Por dia <b style="color: green;">R$${reducaoDiariaMinima}</b> <br>
+        <br>
+        O custo final com o máximo de redução anual seria de <b style="color: rgb(161, 161, 0);">R$${custoFinalAnualMax}</b> <br>
+        Por mês <b style="color: rgb(161, 161, 0);">R$${custoFinalMensalMax}</b> <br>
+        Por dia <b style="color: rgb(161, 161, 0);">R$${custoFinalDiarioMax}</b> <br>
+        <br>
+        O custo final com o mínimo de redução anual seria de <b style="color: rgb(161, 161, 0);">R$${custoFinalAnualMin}</b> <br>
+        Por mês <b style="color: rgb(161, 161, 0);">R$${custoFinalMensalMin}</b> <br>
+        Por dia <b style="color: rgb(161, 161, 0);">R$${custoFinalDiarioMin}</b>
+        `
+    }
+</script>
+
+
+
