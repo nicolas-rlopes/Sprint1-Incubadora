@@ -15,7 +15,7 @@
             Média de dias internados por mês: <input type="number" id="input_media"> <br>
             Custo diario para o hospital (por recém-nascido): <input type="number" id="input_custo"> <br>
 
-            <button onclick="calcular()">Calcular Redução</button> <br>
+            <button onclick="calcular()">Calcular</button> <br>
             <div id="div_mensagem"></div><br>
         </div>
     </div>
@@ -28,18 +28,13 @@
         var media = Number(input_media.value)
         var custoDiario = Number(input_custo.value)
 
+        var mediaBebeSofre = internados * 0.16
 
-        var diasTotal = media * internados
+        var diasTotal = media * mediaBebeSofre
         var custoMensal = diasTotal * custoDiario
         var custoAnual = custoMensal * 12
 
-
-        div_mensagem.innerHTML = `O(s) ${internados} recém-nascidos que ficam em média ${media} dias tem um custo de:<br>`
-
-        // 30 - media =>  20
-
-
-        //desconto dado por conta dos bebes que não precisarão de cuidados extrams por conta da temperatura
+        //desconto dado por conta dos bebes que não precisarão de cuidados extremos por conta da temperatura e pela radução de mão de obra no monitoramento do bebê
 
         // Redução com o desconto de 13%
         var reducaoAnualMinima = custoAnual * 0.13
@@ -60,31 +55,68 @@
         var custoFinalDiarioMax = custoDiario - reducaoDiariaMaxima
 
 
-        div_mensagem.innerHTML += `No período de um ano teria um custo de <b style="color: red;">R$${custoAnual}</b> <br>
+        div_mensagem.innerHTML = `<h3>Nossas pesquisas apontaram que aproxidamente 16% dos bebês internados em incubadoras sofrem com a falta de monitoramento.</h3>
+        Portanto dos ${internados} bebês internados ${mediaBebeSofre} sofrerão com a a falta de monitoramento.
+        <h4>Calculo para saber o quanto um bebês gasta mensalmente e anualmente:</h4>
+
+        <b>- Custo Mensal:</b> Internados (16% do total dos Internados por mês) X Custo Diario X Media de dias<br>
+        <b>- Custo Anual:</b> Custo Mensal X 12(Quantidade de dias em um ano)<br><br>
+
+        <b>Portanto o custo seria:</b><br> 
+        Por ano <b style="color: red;"> R$${custoAnual}</b><br>
         Por mês <b style="color: red;">R$${custoMensal}</b><br>
 
-        <h2>Ao utilizar o sensor para evitar custos adicionais causados pelo mal controle de temperatura, o hospital teria reduzido o custo em: </h2>
-
-
+        <h3>Ao utilizar o sensor para evitar custos adicionais causados pelo mal controle de temperatura, o hospital reduzirá no <b>Minimo</b> 13% e no <b>Máximo</b> 28% do custo.</h3>
         
-        No período de um ano a redução <b>Máxima</b> seria de<b style="color: green;">R$${reducaoAnualMaxima}</b> <br>
-        Por mês <b style="color: green;">R$${reducaoMensalMaxima}</b> <br>
-        Por dia <b style="color: green;">R$${reducaoDiariaMaxima}</b> <br>
-        <br>
-        No período de um ano a redução <b>Mínima</b> seria de<b style="color: green;">R$${reducaoAnualMinima}</b> <br>
+        <b>Calculo do desconto Minimo:</b><br><br>
+
+        - Valor do Desconto Anual <b>Minimo</b> = Custo Anual x 0.13 (Valor Minimo de 13%)<br>
+        - Valor do Desconto Mensa <b>Minimo</b> = Custo Mensal x 0.13 (Valor Minimo de 13%)<br>
+        - Valor do Desconto Diario <b>Minimo</b> = Custo Diario x 0.13 (Valor Minimo de 13%)<br><br>
+        
+        <b>Então o valor do desconto Minimo seria: </b><br>   
+        Por ano <b style="color: green;">R$${reducaoAnualMinima}</b> <br>
         Por mês <b style="color: green;">R$${reducaoMensalMinima}</b> <br>
         Por dia <b style="color: green;">R$${reducaoDiariaMinima}</b> <br>
         <br>
-        O custo final com o máximo de redução anual seria de <b style="color: rgb(161, 161, 0);">R$${custoFinalAnualMax}</b> <br>
-        Por mês <b style="color: rgb(161, 161, 0);">R$${custoFinalMensalMax}</b> <br>
-        Por dia <b style="color: rgb(161, 161, 0);">R$${custoFinalDiarioMax}</b> <br>
+
+        <b>Calculo do desconto Máximo:</b> <br><br>
+
+        - Valor do Desconto Anual <b>Máximo</b> = Custo Anual x 0.28 (Valor Minimo de 28%)<br>
+        - Valor do Desconto Mensa <b>Máximo</b> = Custo Mensal x 0.28 (Valor Minimo de 28%)<br>
+        - Valor do Desconto Diario <b>Máximo</b> = Custo Diario x 0.28 (Valor Minimo de 28%)<br><br>
+
+        <b>Então o valor do desconto Máximo seria:</b><br> <br>
+
+        Por ano <b style="color: green;">R$${reducaoAnualMaxima}</b> <br>
+        Por mês <b style="color: green;">R$${reducaoMensalMaxima}</b> <br>
+        Por dia <b style="color: green;">R$${reducaoDiariaMaxima}</b> <br>
         <br>
-        O custo final com o mínimo de redução anual seria de <b style="color: rgb(161, 161, 0);">R$${custoFinalAnualMin}</b> <br>
+
+        <b>Calculo do custo final Minimo:</b><br><br>
+
+        - Custo Final <b>Minimo</b> Anual = Custo Anual - Valor Desconto <b>Minimo</b> Anual<br>
+        - Custo Final <b>Minimo</b> Mensal = Custo Mensal - Valor Desconto <b>Minimo</b> Mensal<br>
+        - Custo Final <b>Minimo</b> Diario = Custo Diario - Valor Desconto <b>Minimo</b> Diario<br><br>
+
+        <b>Então o custo final minimo com o desconto seria:</b><br><br>
+
+        Por ano <b style="color: rgb(161, 161, 0);">R$${custoFinalAnualMin}</b> <br>
         Por mês <b style="color: rgb(161, 161, 0);">R$${custoFinalMensalMin}</b> <br>
-        Por dia <b style="color: rgb(161, 161, 0);">R$${custoFinalDiarioMin}</b>
+        Por dia <b style="color: rgb(161, 161, 0);">R$${custoFinalDiarioMin}</b> <br>
+        <br>
+
+        <b>Calculo do custo final Máximo:</b><br><br>
+
+        - Custo Final <b>Máximo</b> Anual = Custo Anual - Valor Desconto <b>Máximo</b> Anual<br>
+        - Custo Final <b>Máximo</b> Mensal = Custo Mensal - Valor Desconto <b>Máximo</b> Mensal<br>
+        - Custo Final <b>Máximo</b> Diario = Custo Diario - Valor Desconto <b>Máximo</b> Diario<br><br>
+
+        <b>Então o custo final maximo com o desconto seria:</b> <br><br>
+
+        Por ano <b style="color: rgb(161, 161, 0);">R$${custoFinalAnualMax}</b> <br>
+        Por mês <b style="color: rgb(161, 161, 0);">R$${custoFinalMensalMax}</b> <br>
+        Por dia <b style="color: rgb(161, 161, 0);">R$${custoFinalDiarioMax}</b> 
         `
     }
 </script>
-
-
-
